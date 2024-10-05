@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Экологические факты</title>
+</head>
+<body>
+    <h1>Экологические факты</h1>
+
+    <!-- Описание сайта -->
+    <div class="description">
+        <p>Добро пожаловать на сайт, посвящённый экологическим фактам!</p>
+        <p>Здесь вы можете:</p>
+        <ul>
+            <li>Добавлять интересные факты об экологии.</li>
+            <li>Редактировать уже существующие факты.</li>
+            <li>Удалять все факты, если это необходимо.</li>
+        </ul>
+    </div>
+
+    <!-- Сообщения об ошибках или успехах -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul>
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <ul>
+        {% for fact in facts %}
+            <li>{{ fact.content }} 
+                <a href="{{ url_for('edit_fact', fact_id=fact.id) }}">Редактировать</a>
+            </li>
+        {% else %}
+            <li>Факты отсутствуют</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('add_fact') }}">Добавить факт</a>
+    
+    <!-- Кнопка для очистки базы данных -->
+    <form action="{{ url_for('clear_facts') }}" method="POST" style="display:inline;">
+        <button type="submit">Очистить все факты</button>
+    </form>
+</body>
+</html>

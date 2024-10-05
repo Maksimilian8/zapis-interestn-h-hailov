@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Редактировать факт</title>
+</head>
+<body>
+    <h1>Редактировать факт</h1>
+    
+    <!-- Подсказка для пользователя -->
+    <p>Измените текст факта ниже и нажмите "Сохранить". Убедитесь, что новый факт уникален.</p>
+
+    <form action="" method="POST">
+        <input type="text" name="content" value="{{ fact.content }}" required>
+        <button type="submit">Сохранить</button>
+    </form>
+    
+    <a href="{{ url_for('index') }}">Назад</a>
+</body>
+</html>
